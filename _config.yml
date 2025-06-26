@@ -2,8 +2,8 @@
 title: "MegaEinfa.ch"
 email: "kontakt@thepoweraddicts.com"
 description: "PowerPlatform erklärt - Experten im Flow, live, interaktiv, praxisnah"
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://yourusername.github.io/megaeinfa" # the base hostname & protocol for your site
+baseurl: "/MegaEinfa.ch" # the subpath of your site, e.g. /blog
+url: "https://marcelehmann.github.io" # the base hostname & protocol for your site
 
 # Build settings
 markdown: kramdown
