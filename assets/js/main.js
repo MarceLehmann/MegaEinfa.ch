@@ -61,6 +61,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.event-card').forEach(card => {
         observer.observe(card);
     });
+
+    // Initialize filters
+    initializeFilters();
 });
 
 // Email validation function
@@ -84,5 +87,119 @@ function loadUpcomingEvents() {
     }
 }
 
-// Load events when page loads
-document.addEventListener('DOMContentLoaded', loadUpcomingEvents);
+// Filter System for Recordings
+function initializeFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const categoryFilter = document.getElementById('category-filter');
+    const tagFilter = document.getElementById('tag-filter');
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    const tagButtons = document.querySelectorAll('.tag-btn');
+    const recordingCards = document.querySelectorAll('.recording-card');
+
+    // Filter type buttons (All, Category, Tag)
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+
+            const filterType = this.dataset.filter;
+            
+            // Hide all filter options
+            categoryFilter.classList.add('hidden');
+            tagFilter.classList.add('hidden');
+            
+            // Reset all cards to visible
+            recordingCards.forEach(card => card.classList.remove('hidden'));
+            
+            // Remove active states from filter buttons
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            tagButtons.forEach(btn => btn.classList.remove('active'));
+
+            // Show appropriate filter
+            if (filterType === 'category') {
+                categoryFilter.classList.remove('hidden');
+            } else if (filterType === 'tag') {
+                tagFilter.classList.remove('hidden');
+            }
+        });
+    });
+
+    // Category filter buttons
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Toggle active state
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+
+            const selectedCategory = this.dataset.category;
+            
+            recordingCards.forEach(card => {
+                const cardCategory = card.dataset.category;
+                if (cardCategory === selectedCategory) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    });
+
+    // Tag filter buttons
+    tagButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Toggle active state
+            tagButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+
+            const selectedTag = this.dataset.tag;
+            
+            recordingCards.forEach(card => {
+                const cardTags = card.dataset.tags.split(',');
+                if (cardTags.includes(selectedTag)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    });
+
+    // Add search functionality
+    addSearchFunctionality();
+}
+
+// Search functionality
+function addSearchFunctionality() {
+    // Create search input if it doesn't exist
+    const filterControls = document.querySelector('.filter-controls');
+    if (filterControls && !document.querySelector('.search-input')) {
+        const searchContainer = document.createElement('div');
+        searchContainer.className = 'search-container';
+        searchContainer.innerHTML = `
+            <input type="text" class="search-input" placeholder="🔍 Suche in Aufzeichnungen...">
+        `;
+        filterControls.appendChild(searchContainer);
+
+        const searchInput = searchContainer.querySelector('.search-input');
+        const recordingCards = document.querySelectorAll('.recording-card');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            recordingCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p:last-of-type').textContent.toLowerCase();
+                const presenter = card.querySelector('.event-details').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || 
+                    description.includes(searchTerm) || 
+                    presenter.includes(searchTerm)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    }
+}

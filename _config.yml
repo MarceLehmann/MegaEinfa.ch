@@ -44,3 +44,17 @@ defaults:
       type: "recordings"
     values:
       layout: "recording"
+
+# Tag-System für Recordings
+tag_colors:
+  "Power Apps": "#6b46c1"
+  "Power Automate": "#059669"
+  "Power BI": "#dc2626"
+  "Copilot Studio": "#2563eb"
+  "Governance": "#7c3aed"
+  "ALM": "#ea580c"
+  "AI": "#f59e0b"
+  "Dataverse": "#10b981"
+  "Fabric": "#8b5cf6"
+  "Grundlagen": "#6b7280"
+  "Advanced": "#ef4444"

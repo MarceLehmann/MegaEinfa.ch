@@ -34,6 +34,8 @@ date: 2025-01-15  # Datum im Format YYYY-MM-DD
 presenter: "Name des Präsentators"
 youtube_id: "dQw4w9WgXcQ"  # YouTube Video ID (ohne https://...)
 description: "Kurze Beschreibung für die Übersicht"
+tags: ["Power Apps", "Grundlagen"]  # Tags für Filterung
+category: "Entwicklung & Deployment"  # Kategorie
 ---
 
 Hier kommt der ausführliche Inhalt der Beschreibung...
@@ -42,6 +44,20 @@ Hier kommt der ausführliche Inhalt der Beschreibung...
 - Für wen ist es geeignet?
 - Was lernt man?
 ```
+
+### 3. **Tags und Kategorien**:
+
+**Verfügbare Tags:**
+- `Power Apps`, `Power Automate`, `Power BI`, `Copilot Studio`
+- `Governance`, `ALM`, `AI`, `Dataverse`, `Fabric`
+- `Grundlagen`, `Advanced`
+
+**Kategorien-Beispiele:**
+- `"AI & Machine Learning"`
+- `"Entwicklung & Deployment"`
+- `"Daten & Analytics"`
+- `"Governance & Compliance"`
+- `"AI & Automation"`
 
 ### 3. YouTube Video ID finden:
 - YouTube URL: `https://www.youtube.com/watch?v=dQw4w9WgXcQ`
@@ -114,8 +130,18 @@ registration_link: "https://anmeldung.link"
 ## ⚡ **Pro-Tipps**:
 
 - **Dateinamen**: Verwenden Sie sprechende Namen wie `power-automate-grundlagen.md`
-- **Sortierung**: Aufzeichnungen werden automatisch nach Datum sortiert (neueste zuerst)
+- **Sortierung**: Aufzeichnungen werden automatisch nach Datum sortiert (**neueste oben** ⬆️)
+- **Tags**: Verwenden Sie konsistente Tags für bessere Filterung
+- **Farben**: Tags haben automatische Farben (konfigurierbar in `_config.yml`)
 - **Termine**: Zukünftige Termine werden in der Reihenfolge der YAML-Datei angezeigt
 - **Bilder**: Können in `assets/images/` gespeichert und verlinkt werden
+
+## 🎯 **Filter-Features**:
+
+- **🔍 Suchfunktion**: Durchsucht Titel, Beschreibung und Präsentator
+- **📂 Kategorie-Filter**: Filtert nach Themenbereichen
+- **🏷️ Tag-Filter**: Filtert nach spezifischen Tags
+- **📅 Automatische Sortierung**: Neueste Aufzeichnungen zuerst
+- **🎨 Farbkodierung**: Jeder Tag hat seine eigene Farbe
 
 Alles funktioniert **vollautomatisch** - Sie müssen nur die Dateien erstellen! 🎉
