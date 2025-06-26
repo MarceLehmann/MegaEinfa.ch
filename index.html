@@ -23,12 +23,22 @@ layout: default
   <section id="events" class="section">
     <h2 class="section-title">Unsere Veranstaltungen</h2>
     <div id="events-container">
-      {% comment %} Filter nur zukünftige Events {% endcomment %}
+      {% comment %} Zeige alle Events in der Datei - flexiblere Lösung {% endcomment %}
       {% assign today = 'now' | date: '%Y-%m-%d' %}
-      {% assign upcoming_events = site.data.upcoming_events | where_exp: "event", "event.date >= today" %}
+      {% assign upcoming_events = site.data.upcoming_events %}
+      {% assign future_events = upcoming_events | where_exp: "event", "event.date >= today" %}
       
-      {% if upcoming_events and upcoming_events.size > 0 %}
-        {% for event in upcoming_events %}
+      {% comment %} Wenn keine zukünftigen Events, zeige alle Events aus der Liste {% endcomment %}
+      {% if future_events and future_events.size > 0 %}
+        {% assign events_to_show = future_events %}
+      {% elsif upcoming_events and upcoming_events.size > 0 %}
+        {% assign events_to_show = upcoming_events %}
+      {% else %}
+        {% assign events_to_show = empty %}
+      {% endif %}
+      
+      {% if events_to_show and events_to_show.size > 0 %}
+        {% for event in events_to_show %}
           <div class="event-card upcoming-event">
             <div class="event-status {{ event.status | slugify }}">{{ event.status }}</div>
             <h3>{{ event.title }}</h3>
@@ -50,6 +60,11 @@ layout: default
           <h3>🗓️ Keine anstehenden Termine</h3>
           <p>Aktuell sind keine zukünftigen Veranstaltungen geplant. Neue Termine werden in Kürze bekannt gegeben!</p>
           <p><strong>💡 Tipp:</strong> Melden Sie sich für unseren Newsletter an, um als Erste über neue Termine informiert zu werden.</p>
+          {% comment %} Debug Info {% endcomment %}
+          {% assign debug_today = 'now' | date: '%Y-%m-%d' %}
+          <p><small>Debug: Heute ist {{ debug_today }}. 
+          Events in Datei: {{ site.data.upcoming_events.size | default: 0 }}. 
+          Zukünftige Events: {{ future_events.size | default: 0 }}.</small></p>
         </div>
       {% endif %}
     </div>
