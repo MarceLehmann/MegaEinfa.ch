@@ -2,6 +2,7 @@
 title: "Governance"
 date: 2024-02-16
 presenter: "Michael Roth"
+linkedin: "https://www.linkedin.com/in/michael-roth-governance/"
 youtube_id: "kVMopzHC5eg"
 description: ""
 tags: ["Governance", "Advanced"]

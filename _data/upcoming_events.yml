@@ -8,6 +8,7 @@
 #   date: "2025-07-15"  # Format: YYYY-MM-DD
 #   time: "10:00 - 11:30"
 #   presenter: "Name des Präsentators"
+#   linkedin: "https://www.linkedin.com/in/presenter-name/"  # LinkedIn-Profil des Präsentators
 #   description: "Beschreibung was behandelt wird und was die Teilnehmer lernen..."
 #   registration_link: "https://link-zur-anmeldung.com"  # Optional
 #   status: "Anmeldung offen"  # Optionen: "Anmeldung offen", "Bald verfügbar", "Planung"
@@ -23,6 +24,7 @@
   date: "2025-08-15"
   time: "10:00 - 11:30"
   presenter: "Sarah Schmidt"
+  linkedin: "https://www.linkedin.com/in/sarah-schmidt-powerplatform/"
   description: "Erfahren Sie, wie Sie benutzerfreundliche Canvas Apps mit Power Apps erstellen und dabei moderne UI/UX-Prinzipien anwenden."
   registration_link: "https://example.com/register1"
   status: "Anmeldung offen"
@@ -31,6 +33,7 @@
   date: "2025-09-10"
   time: "14:00 - 15:30"
   presenter: "Thomas Wagner"
+  linkedin: "https://www.linkedin.com/in/thomas-wagner-data/"
   description: "Lernen Sie die Grundlagen der Datenmodellierung in Dataverse und wie Sie effiziente Datenstrukturen aufbauen."
   registration_link: "https://example.com/register2"
   status: "Bald verfügbar"
@@ -39,6 +42,7 @@
   date: "2025-10-05"
   time: "09:00 - 10:30"
   presenter: "Lisa Müller"
+  linkedin: "https://www.linkedin.com/in/lisa-mueller-analytics/"
   description: "Vertiefen Sie Ihr Wissen über Power BI Premium Features und Advanced Analytics Möglichkeiten."
   registration_link: "https://example.com/register3"
   status: "Planung"

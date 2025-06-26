@@ -2,6 +2,7 @@
 title: "AI mit der PowerPlatform nutzen"
 date: 2024-02-24
 presenter: "Michael Megel"
+linkedin: "https://www.linkedin.com/in/michael-megel-ai/"
 youtube_id: "iH3uKVDIuHA"
 description: "Die Kombination von Power Platform und KI-Funktionen wie ChatGPT eröffnet neue Möglichkeiten zur Automatisierung und Optimierung von Prozessen. In diesem Video wird gezeigt, wie man mithilfe von Power Automate und Azure OpenAI einen automatisierten Support-Agenten erstellt, der auf Teams-Nachrichten reagiert und mithilfe von KI Antworten generiert."
 tags: ["Power Platform", "KI", "ChatGPT", "Power Automate", "Azure OpenAI", "Teams", "Automatisierung", "Support-Agent"]

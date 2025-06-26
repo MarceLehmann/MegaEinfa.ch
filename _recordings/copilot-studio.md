@@ -2,6 +2,7 @@
 title: "Copilot Studio"
 date: 2024-02-02
 presenter: "Ferdi Lethen-Oellers"
+linkedin: "https://www.linkedin.com/in/ferdinand-lethen-oellers/"
 youtube_id: "1gKR-uov2aQ"
 description: "MegaEinfach – PowerPlattform erklärt. Ferdinand Lethen-Oellers MVP präsentiert eine Einführung in die Power Platform und stellt die Möglichkeiten von Copilot Studio vor, um Chatbots zu erstellen und interne Prozesse zu optimieren. Das Video deckt Themen wie die Erstellung von Chatbots, die Integration von KI-Modellen und Best Practices für die Anwendung der Power Platform ab."
 tags: ["Power Platform", "Power Apps", "Power Automate", "Copilot Studio", "KI", "Chatbot", "Low-Code", "No-Code", "Microsoft MVP", "Marcel Lehmann", "Ferdinand Lethen-Oellers"]

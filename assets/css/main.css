@@ -252,6 +252,32 @@ body {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* LinkedIn links in events */
+.linkedin-link {
+  color: #0077b5;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: color 0.2s ease;
+}
+
+.linkedin-link:hover {
+  color: #005885;
+  text-decoration: none;
+}
+
+.linkedin-link svg {
+  width: 16px;
+  height: 16px;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.linkedin-link:hover svg {
+  opacity: 1;
+}
+
 /* Upcoming events styling */
 .upcoming-event {
   border-left: 5px solid #667eea;

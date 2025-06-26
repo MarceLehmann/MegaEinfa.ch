@@ -145,3 +145,29 @@ registration_link: "https://anmeldung.link"
 - **🎨 Farbkodierung**: Jeder Tag hat seine eigene Farbe
 
 Alles funktioniert **vollautomatisch** - Sie müssen nur die Dateien erstellen! 🎉
+
+---
+
+## 5. LinkedIn-Links für Presenter
+
+Sowohl bei Aufzeichnungen als auch bei zukünftigen Terminen können LinkedIn-Profile der Presenter verlinkt werden:
+
+**Für Aufzeichnungen** (in der Markdown-Datei):
+```yaml
+---
+title: "Event-Titel"
+presenter: "Max Mustermann"
+linkedin: "https://www.linkedin.com/in/max-mustermann/"
+# ... andere Felder
+---
+```
+
+**Für zukünftige Termine** (in `_data/upcoming_events.yml`):
+```yaml
+- title: "Event-Titel"
+  presenter: "Max Mustermann"
+  linkedin: "https://www.linkedin.com/in/max-mustermann/"
+  # ... andere Felder
+```
+
+Die LinkedIn-Links werden automatisch als anklickbare Icons neben dem Presenter-Namen angezeigt.

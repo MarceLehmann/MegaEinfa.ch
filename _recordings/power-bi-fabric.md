@@ -2,6 +2,7 @@
 title: "Power BI & Fabric"
 date: 2024-05-17
 presenter: "Kathrin Borchert"
+linkedin: "https://www.linkedin.com/in/kathrin-borchert-powerbi/"
 youtube_id: "YWg2Gvn9-JM"
 description: ""
 tags: ["Power BI", "Fabric", "Grundlagen"]
