@@ -4,6 +4,8 @@ date: 2024-12-06
 presenter: "Bülent Altinsoy"
 youtube_id: ""
 description: "Entdecke, wie Microsoft Copilot Studio Agents die Entwicklung von intelligenten Assistenten revolutioniert und Unternehmen neue Möglichkeiten der Prozessautomatisierung eröffnet."
+tags: ["Copilot Studio", "AI", "Advanced"]
+category: "AI & Automation"
 ---
 
 Entdecke, wie Microsoft Copilot Studio Agents die Entwicklung von intelligenten Assistenten revolutioniert und Unternehmen neue Möglichkeiten der Prozessautomatisierung eröffnet. 
