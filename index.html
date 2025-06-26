@@ -23,8 +23,35 @@ layout: default
   <section id="events" class="section">
     <h2 class="section-title">Unsere Veranstaltungen</h2>
     <div id="events-container">
-      <!-- Events will be loaded here dynamically -->
-      <p>Kommende Veranstaltungen werden hier angezeigt.</p>
+      {% comment %} Filter nur zukünftige Events {% endcomment %}
+      {% assign today = 'now' | date: '%Y-%m-%d' %}
+      {% assign upcoming_events = site.data.upcoming_events | where_exp: "event", "event.date >= today" %}
+      
+      {% if upcoming_events and upcoming_events.size > 0 %}
+        {% for event in upcoming_events %}
+          <div class="event-card upcoming-event">
+            <div class="event-status {{ event.status | slugify }}">{{ event.status }}</div>
+            <h3>{{ event.title }}</h3>
+            <p class="event-details">
+              <strong>Datum:</strong> {{ event.date | date: "%d.%m.%Y" }}<br>
+              <strong>Zeit:</strong> {{ event.time }}<br>
+              <strong>Präsentiert von:</strong> {{ event.presenter }}
+            </p>
+            <p>{{ event.description }}</p>
+            {% if event.registration_link and event.status == "Anmeldung offen" %}
+              <a href="{{ event.registration_link }}" class="cta-button cta-button-primary" target="_blank">
+                Jetzt anmelden
+              </a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="event-card no-events">
+          <h3>🗓️ Keine anstehenden Termine</h3>
+          <p>Aktuell sind keine zukünftigen Veranstaltungen geplant. Neue Termine werden in Kürze bekannt gegeben!</p>
+          <p><strong>💡 Tipp:</strong> Melden Sie sich für unseren Newsletter an, um als Erste über neue Termine informiert zu werden.</p>
+        </div>
+      {% endif %}
     </div>
   </section>
 

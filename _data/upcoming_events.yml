@@ -1,0 +1,44 @@
+# ========================================
+# UPCOMING EVENTS - Zukünftige Termine
+# ========================================
+# 
+# Template für neue Termine (einfach kopieren und anpassen):
+#
+# - title: "Titel der Veranstaltung"
+#   date: "2025-07-15"  # Format: YYYY-MM-DD
+#   time: "10:00 - 11:30"
+#   presenter: "Name des Präsentators"
+#   description: "Beschreibung was behandelt wird und was die Teilnehmer lernen..."
+#   registration_link: "https://link-zur-anmeldung.com"  # Optional
+#   status: "Anmeldung offen"  # Optionen: "Anmeldung offen", "Bald verfügbar", "Planung"
+#
+# Status-Optionen:
+# - "Anmeldung offen" = Grüner Badge + Anmelde-Button
+# - "Bald verfügbar"  = Gelber Badge
+# - "Planung"         = Oranger Badge
+#
+# ========================================
+
+- title: "Power Apps Canvas Apps - Moderne Apps erstellen"
+  date: "2025-02-15"
+  time: "10:00 - 11:30"
+  presenter: "Sarah Schmidt"
+  description: "Erfahren Sie, wie Sie benutzerfreundliche Canvas Apps mit Power Apps erstellen und dabei moderne UI/UX-Prinzipien anwenden."
+  registration_link: "https://example.com/register1"
+  status: "Anmeldung offen"
+
+- title: "Dataverse - Datenmodellierung leicht gemacht"
+  date: "2025-03-10"
+  time: "14:00 - 15:30"
+  presenter: "Thomas Wagner"
+  description: "Lernen Sie die Grundlagen der Datenmodellierung in Dataverse und wie Sie effiziente Datenstrukturen aufbauen."
+  registration_link: "https://example.com/register2"
+  status: "Bald verfügbar"
+
+- title: "Power BI Premium - Advanced Analytics"
+  date: "2025-04-05"
+  time: "09:00 - 10:30"
+  presenter: "Lisa Müller"
+  description: "Vertiefen Sie Ihr Wissen über Power BI Premium Features und Advanced Analytics Möglichkeiten."
+  registration_link: "https://example.com/register3"
+  status: "Planung"
