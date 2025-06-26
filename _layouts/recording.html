@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+<div class="container">
+  <article class="recording-detail">
+    <h1>{{ page.title }}</h1>
+    <div class="recording-meta">
+      <p><strong>Datum:</strong> {{ page.date | date: "%d.%m.%Y" }}</p>
+      <p><strong>Präsentiert von:</strong> {{ page.presenter }}</p>
+    </div>
+    
+    {% if page.youtube_id %}
+      <div class="video-container">
+        <iframe width="100%" height="500" 
+                src="https://www.youtube.com/embed/{{ page.youtube_id }}" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen></iframe>
+      </div>
+    {% endif %}
+    
+    <div class="recording-content">
+      {{ content }}
+    </div>
+    
+    <div class="back-link">
+      <a href="{{ '/' | relative_url }}" class="cta-button cta-button-secondary">← Zurück zur Übersicht</a>
+    </div>
+  </article>
+</div>

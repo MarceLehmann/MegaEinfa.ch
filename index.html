@@ -1,0 +1,62 @@
+---
+layout: default
+---
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">{{ site.title }}</h1>
+    <p class="hero-subtitle">PowerPlatform erklärt</p>
+    <p>Experten im Flow, live, interaktiv, praxisnah</p>
+    <div class="cta-buttons">
+      <button class="cta-button cta-button-primary" onclick="document.getElementById('events').scrollIntoView({ behavior: 'smooth' })">
+        Nächste Veranstaltung
+      </button>
+      <button class="cta-button cta-button-secondary" onclick="document.getElementById('recordings').scrollIntoView({ behavior: 'smooth' })">
+        Aufzeichnungen ansehen
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <section id="events" class="section">
+    <h2 class="section-title">Unsere Veranstaltungen</h2>
+    <div id="events-container">
+      <!-- Events will be loaded here dynamically -->
+      <p>Kommende Veranstaltungen werden hier angezeigt.</p>
+    </div>
+  </section>
+
+  <section id="recordings" class="section">
+    <h2 class="section-title">Aufzeichnungen</h2>
+    <div id="recordings-container">
+      {% for recording in site.recordings %}
+        <div class="event-card">
+          <h3>{{ recording.title }}</h3>
+          <p class="event-details">
+            <strong>Datum:</strong> {{ recording.date | date: "%d.%m.%Y" }}<br>
+            <strong>Präsentiert von:</strong> {{ recording.presenter }}
+          </p>
+          <p>{{ recording.description }}</p>
+          {% if recording.youtube_id %}
+            <iframe width="100%" height="315" 
+                    src="https://www.youtube.com/embed/{{ recording.youtube_id }}" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="newsletter-section">
+    <h2 class="newsletter-title">Bleiben Sie auf dem Laufenden!</h2>
+    <p>Melden Sie sich für unseren Newsletter an, um über zukünftige Veranstaltungen und Aufzeichnungen informiert zu werden.</p>
+    <form class="newsletter-form" action="#" method="post">
+      <input type="email" class="newsletter-input" placeholder="Ihre E-Mail-Adresse" required>
+      <button type="submit" class="newsletter-button">Anmelden</button>
+    </form>
+  </section>
+</div>

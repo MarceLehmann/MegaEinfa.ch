@@ -1,0 +1,46 @@
+# Site settings
+title: "MegaEinfa.ch"
+email: "kontakt@thepoweraddicts.com"
+description: "PowerPlatform erklärt - Experten im Flow, live, interaktiv, praxisnah"
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://yourusername.github.io/megaeinfa" # the base hostname & protocol for your site
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:categories/:year/:month/:day/:title/
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Collections
+collections:
+  recordings:
+    output: true
+    permalink: /:collection/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "recordings"
+    values:
+      layout: "recording"
