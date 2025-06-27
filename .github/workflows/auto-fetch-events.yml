@@ -1,0 +1,77 @@
+name: Auto-Fetch Events for GitHub Pages
+
+on:
+  schedule:
+    - cron: '0 8 * * *' # Täglich 10:00 CEST
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+    paths:
+      - '.github/workflows/auto-fetch-events.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  fetch-and-update-events:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch events from Logic App
+        id: fetch-events
+        run: |
+          RESPONSE=$(curl -s -w "HTTP_CODE:%{http_code}" -X GET \
+            "https://prod-25.switzerlandnorth.logic.azure.com:443/workflows/2d4664dae4a8477583ae88ce5a4cf570/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=oHWCdT2HSCOQ3j1gQOYJPg9e07eFR44xSIGbvyBl2OM" \
+            -H "Content-Type: application/json")
+          HTTP_CODE=$(echo "$RESPONSE" | grep -o "HTTP_CODE:[0-9]*" | cut -d: -f2)
+          JSON_RESPONSE=$(echo "$RESPONSE" | sed 's/HTTP_CODE:[0-9]*$//')
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "has_new_events=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          if ! echo "$JSON_RESPONSE" | jq empty > /dev/null 2>&1; then
+            echo "has_new_events=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          NEW_EVENTS=$(echo "$JSON_RESPONSE" | jq -r '.New // empty')
+          if [ "$NEW_EVENTS" = "null" ] || [ -z "$NEW_EVENTS" ] || [ "$NEW_EVENTS" = "[]" ]; then
+            echo "has_new_events=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_new_events=true" >> $GITHUB_OUTPUT
+            echo "$NEW_EVENTS" > new_events.json
+          fi
+
+      - name: Setup Node.js
+        if: steps.fetch-events.outputs.has_new_events == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Process and add new events
+        if: steps.fetch-events.outputs.has_new_events == 'true'
+        run: |
+          npm install js-yaml
+          cat > process_events.js << 'EOF'
+          // ... (JavaScript wie oben, ggf. gekürzt einfügen)
+          EOF
+          node process_events.js
+
+      - name: Commit and push changes
+        if: steps.fetch-events.outputs.has_new_events == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add _data/upcoming_events.yml
+          git commit -m "Auto-Update: Neue Events von Logic App"
+          git push
+
+      - name: Summary
+        run: |
+          echo "Done."
+
