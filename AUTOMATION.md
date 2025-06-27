@@ -32,7 +32,8 @@ Die Logic App sollte folgendes JSON-Format zurückgeben:
       "title": "\"MegaEinfa.ch - PowerPlatform erklärt\" - AI mit der PowerPlatform nutzen",
       "date": "2024-02-24T00:00:00Z",
       "presenter": "Michael Megel",
-      "description": "Beschreibung des Events..."
+      "description": "Beschreibung des Events...",
+      "linkedin": "https://www.linkedin.com/in/michael-megel/"
     }
   ],
   "Old": [...]
@@ -46,9 +47,10 @@ Neue Events werden automatisch transformiert:
 - **Titel**: Entfernt Prefix "MegaEinfa.ch - PowerPlatform erklärt"
 - **Datum**: Konvertiert ISO-Datum zu YYYY-MM-DD
 - **Zeit**: Standard "10:00 - 11:30" (anpassbar)
-- **LinkedIn**: Generiert automatisch aus Presenter-Name
-- **Status**: Standard "Bald verfügbar"
-- **Registration**: Placeholder-Link (manuell anpassbar)
+- **LinkedIn**: Verwendet LinkedIn-URL aus JSON oder generiert Fallback aus Name
+- **Zeit**: Verwendet Zeit aus JSON oder Standard "10:00 - 11:30"
+- **Status**: Verwendet Status aus JSON oder Standard "Bald verfügbar"
+- **Registration**: Verwendet Link aus JSON oder Placeholder-Link
 
 ## 🛠️ Konfiguration
 
@@ -121,8 +123,8 @@ Erweitern Sie das JSON um zusätzliche Felder:
       "date": "2024-02-24T00:00:00Z",
       "presenter": "Name",
       "description": "Description",
+      "linkedin": "https://www.linkedin.com/in/presenter-name/", // LinkedIn-URL aus Logic App
       "time": "14:00 - 15:30",        // Optionale Zeit
-      "linkedin": "https://...",       // Optionaler LinkedIn-Link
       "registration_link": "https://", // Optionaler Anmelde-Link
       "status": "Anmeldung offen"     // Optionaler Status
     }
