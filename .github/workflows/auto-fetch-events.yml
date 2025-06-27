@@ -23,7 +23,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        # Wichtig: Token für Push-Berechtigung
         token: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Fetch events from Logic App
