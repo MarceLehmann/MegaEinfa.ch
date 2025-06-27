@@ -171,3 +171,22 @@ linkedin: "https://www.linkedin.com/in/max-mustermann/"
 ```
 
 Die LinkedIn-Links werden automatisch als anklickbare Icons neben dem Presenter-Namen angezeigt.
+
+---
+
+## 6. Automatische "Mehr lesen" Funktionalität
+
+Die Seite verfügt über eine intelligente "Mehr lesen" / "Weniger anzeigen" Funktionalität:
+
+- **Bei Events**: Beschreibungen über 120 Zeichen werden automatisch gekürzt
+- **Bei Aufzeichnungen**: Beschreibungen über 150 Zeichen werden automatisch gekürzt
+- **Interaktive Buttons**: Benutzer können mit "Mehr lesen →" den vollständigen Text anzeigen
+- **Responsive**: Funktioniert auf allen Geräten
+
+**So funktioniert es:**
+1. Kurze Texte werden vollständig angezeigt
+2. Lange Texte zeigen eine Vorschau mit "..." am Ende
+3. Klick auf "Mehr lesen →" zeigt den vollständigen Text
+4. Klick auf "← Weniger anzeigen" klappt den Text wieder ein
+
+Dies verbessert die Benutzerfreundlichkeit erheblich, da die Seite übersichtlicher bleibt, aber dennoch alle Informationen zugänglich sind.

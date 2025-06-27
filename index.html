@@ -57,7 +57,21 @@ layout: default
                 {{ event.presenter }}
               {% endif %}
             </p>
-            <p>{{ event.description }}</p>
+            <div class="card-content">
+              {% if event.description and event.description.size > 120 %}
+                <div class="description-preview">
+                  {{ event.description | truncate: 120 }}
+                </div>
+                <div class="description-full">
+                  {{ event.description }}
+                </div>
+                <button class="read-more-btn" onclick="toggleDescription(this)" aria-expanded="false">
+                  Mehr lesen →
+                </button>
+              {% else %}
+                <p>{{ event.description }}</p>
+              {% endif %}
+            </div>
             {% if event.registration_link and event.status == "Anmeldung offen" %}
               <a href="{{ event.registration_link }}" class="cta-button cta-button-primary" target="_blank">
                 Jetzt anmelden
@@ -145,9 +159,33 @@ layout: default
           <h3>{{ recording.title }}</h3>
           <p class="event-details">
             <strong>Datum:</strong> {{ recording.date | date: "%d.%m.%Y" }}<br>
-            <strong>Präsentiert von:</strong> {{ recording.presenter }}
+            <strong>Präsentiert von:</strong> 
+            {% if recording.linkedin %}
+              <a href="{{ recording.linkedin }}" target="_blank" rel="noopener noreferrer" class="linkedin-link">
+                {{ recording.presenter }}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+            {% else %}
+              {{ recording.presenter }}
+            {% endif %}
           </p>
-          <p>{{ recording.description }}</p>
+          <div class="card-content">
+            {% if recording.description and recording.description.size > 150 %}
+              <div class="description-preview">
+                {{ recording.description | truncate: 150 }}
+              </div>
+              <div class="description-full">
+                {{ recording.description }}
+              </div>
+              <button class="read-more-btn" onclick="toggleDescription(this)" aria-expanded="false">
+                Mehr lesen →
+              </button>
+            {% else %}
+              <p>{{ recording.description }}</p>
+            {% endif %}
+          </div>
           {% if recording.youtube_id and recording.youtube_id != "" %}
             <iframe width="100%" height="315" 
                     src="https://www.youtube.com/embed/{{ recording.youtube_id }}" 

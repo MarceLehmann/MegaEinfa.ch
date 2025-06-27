@@ -64,6 +64,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize filters
     initializeFilters();
+
+    // Initialize read more buttons
+    const readMoreButtons = document.querySelectorAll('.read-more-btn');
+    readMoreButtons.forEach(button => {
+        button.setAttribute('aria-expanded', 'false');
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleDescription(this);
+        });
+    });
+
+    // Add search functionality
+    addSearchFunctionality();
 });
 
 // Email validation function
@@ -164,9 +177,6 @@ function initializeFilters() {
             });
         });
     });
-
-    // Add search functionality
-    addSearchFunctionality();
 }
 
 // Search functionality
@@ -201,5 +211,26 @@ function addSearchFunctionality() {
                 }
             });
         });
+    }
+}
+
+// Read More / Read Less functionality
+function toggleDescription(button) {
+    const cardContent = button.closest('.card-content');
+    const preview = cardContent.querySelector('.description-preview');
+    const full = cardContent.querySelector('.description-full');
+    
+    if (full.classList.contains('expanded')) {
+        // Collapse
+        full.classList.remove('expanded');
+        preview.classList.remove('collapsed');
+        button.textContent = 'Mehr lesen →';
+        button.setAttribute('aria-expanded', 'false');
+    } else {
+        // Expand
+        full.classList.add('expanded');
+        preview.classList.add('collapsed');
+        button.textContent = '← Weniger anzeigen';
+        button.setAttribute('aria-expanded', 'true');
     }
 }

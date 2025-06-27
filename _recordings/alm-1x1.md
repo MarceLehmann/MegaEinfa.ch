@@ -2,22 +2,36 @@
 title: "Das 1x1 des ALM"
 date: 2024-03-01
 presenter: "Michael Megel"
-linkedin: "https://www.linkedin.com/in/michael-megel-alm/"
+linkedin: "https://www.linkedin.com/in/michaelmegel"
 youtube_id: "TTALZ1VOd9k"
-description: "Die Kombination von Power Platform und KI-Funktionen wie ChatGPT eröffnet neue Möglichkeiten zur Automatisierung und Optimierung von Prozessen. In diesem Video wird gezeigt, wie man mithilfe von Power Automate und Azure OpenAI einen automatisierten Support-Agenten erstellt, der auf Teams-Nachrichten reagiert und mithilfe von KI Antworten generiert."
-tags: ["Power Platform", "KI", "ChatGPT", "Power Automate", "Azure OpenAI", "Teams", "Automatisierung", "Support-Agent"]
+description: "Dieses Video bietet einen praxisnahen Einstieg in das Application Lifecycle Management (ALM) mit der Power Platform. Michael Megel erklärt anschaulich die wichtigsten Konzepte, Tools und Best Practices für ein erfolgreiches ALM – von der Entwicklung über das Testen bis zum Deployment. Ideal für alle, die ihre Power Platform-Projekte strukturiert, sicher und effizient managen wollen."
+tags: ["Power Platform", "ALM", "Application Lifecycle Management", "DevOps", "Deployment", "Best Practices", "Microsoft", "Prozesse"]
 category: "Technologie & Entwicklung"
 ---
-Die Kombination von Power Platform und KI-Funktionen wie ChatGPT eröffnet neue Möglichkeiten zur Automatisierung und Optimierung von Prozessen. In diesem Video wird gezeigt, wie man mithilfe von Power Automate und Azure OpenAI einen automatisierten Support-Agenten erstellt, der auf Teams-Nachrichten reagiert und mithilfe von KI Antworten generiert.
 
-Das Video deckt folgende Punkte ab:
-- Erstellung eines Power Automate Flows, der auf bestimmte Schlüsselwörter in Microsoft Teams reagiert.
-- Anbindung an Azure OpenAI Service zur Nutzung von KI-Modellen wie GPT-4.
-- Konfiguration von Umgebungsvariablen für Endpunkt und API-Schlüssel.
-- Aufbau des HTTP-Connectors, um mit dem OpenAI-Modell zu kommunizieren.
-- Strukturierung der Prompts für die KI, um spezifische Antworten zu erhalten (z.B. als Helpdesk-Manager agieren).
-- Verarbeitung der KI-Antworten und Rücksendung an Microsoft Teams.
-- Diskussion über Kosten und Skalierbarkeit von KI-Diensten in der Cloud.
-- Vorstellung von Best Practices für die Nutzung von Azure OpenAI, wie die Wahl des richtigen Modells und die Handhabung von Anfragen.
-- Beispielhafte Anwendung für einen Support-Desk, bei dem Anfragen automatisch beantwortet werden.
-- Tipps zur Fehlerbehebung und Optimierung der KI-Interaktion.
+Das Video „Das 1x1 des ALM“ ist ein Muss für alle, die sich mit der strukturierten und professionellen Verwaltung von Power Platform-Lösungen beschäftigen. Michael Megel, Microsoft MVP und erfahrener ALM-Spezialist, nimmt dich mit auf eine verständliche und praxisorientierte Reise durch die wichtigsten Grundlagen und Methoden des Application Lifecycle Managements – speziell zugeschnitten auf die Power Platform.
+
+## Warum solltest du das Video anschauen?
+
+- **Fundiertes ALM-Wissen:** Michael erklärt die zentralen Begriffe und Prinzipien des ALM, von der Entwicklung über das Testen bis hin zum Deployment.
+- **Praxisnahe Demonstrationen:** Du siehst, wie ALM-Prozesse konkret mit den Tools der Power Platform und Microsoft DevOps umgesetzt werden können.
+- **Best Practices:** Es werden erprobte Strategien und Tipps vorgestellt, wie du typische Fehler vermeidest und deine Projekte sicher und effizient managst.
+- **Strukturierte Herangehensweise:** Ideal für Einsteiger und Fortgeschrittene, die ALM in ihren Projekten einführen oder optimieren möchten.
+
+## Wer ist im Video zu sehen?
+
+- **Michael Megel** ist Microsoft MVP für Business Applications, ALM-Experte und Community-Engagierter. Er teilt sein umfangreiches Praxiswissen und gibt Einblicke in reale Projekte und Herausforderungen rund um ALM und die Power Platform.
+
+## Insights & Highlights
+
+- Einführung in die Grundprinzipien des Application Lifecycle Managements
+- Vorstellung der wichtigsten ALM-Tools für die Power Platform
+- Schritt-für-Schritt-Anleitung für einen typischen ALM-Prozess: Entwicklung, Test, Deployment
+- Tipps zur Automatisierung und zum Einsatz von DevOps-Methoden
+- Best Practices für Sicherheit, Nachvollziehbarkeit und Skalierbarkeit
+- Beispiele aus der Praxis: Wie ALM-Prozesse in echten Projekten aussehen
+- Häufige Stolpersteine und wie du sie vermeidest
+
+## Fazit
+
+Dieses Video ist der perfekte Einstieg für alle, die ALM in der Power Platform verstehen und anwenden möchten. Egal ob du gerade erst beginnst oder bereits Erfahrungen gesammelt hast – die praxisnahen Erklärungen und Tipps von Michael Megel helfen dir, deine Projekte strukturiert, sicher und erfolgreich umzusetzen.
