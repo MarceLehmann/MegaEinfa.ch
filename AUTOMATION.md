@@ -144,14 +144,30 @@ Fügen Sie Webhook-Benachrichtigungen hinzu (Teams, Slack, etc.):
       -d '{"text": "🎉 Neue Events auf MegaEinfa.ch hinzugefügt!"}'
 ```
 
-## 📋 Checkliste Setup
+## 📧 Newsletter-Integration
 
-- [ ] Logic App URL ist korrekt
-- [ ] Logic App gibt valides JSON zurück
-- [ ] GitHub Action läuft erfolgreich durch
-- [ ] Neue Events erscheinen auf der Website
-- [ ] Duplikat-Erkennung funktioniert
-- [ ] Commit-Messages sind aussagekräftig
+Die Newsletter-Anmeldung ist mit einer Azure Logic App verbunden:
+
+### Funktionalität:
+- **Validierung**: E-Mail-Format wird clientseitig geprüft
+- **POST Request**: Daten werden an Azure Logic App gesendet
+- **Feedback**: Benutzer erhält sofortiges visuelles Feedback
+- **Error Handling**: Robuste Fehlerbehandlung bei Verbindungsproblemen
+
+### Datenformat:
+```json
+{
+  "email": "user@example.com",
+  "timestamp": "2025-06-27T10:00:00.000Z",
+  "source": "megaeinfa.ch"
+}
+```
+
+### UI-Features:
+- Loading-State während der Übertragung
+- Toast-Notifications für Erfolg/Fehler
+- Automatisches Form-Reset bei Erfolg
+- Responsive Design
 
 ---
 

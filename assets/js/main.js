@@ -18,17 +18,52 @@ document.addEventListener('DOMContentLoaded', function() {
     // Newsletter form handling
     const newsletterForm = document.querySelector('.newsletter-form');
     if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
+        newsletterForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            const email = this.querySelector('.newsletter-input').value;
+            
+            const emailInput = this.querySelector('.newsletter-input');
+            const submitButton = this.querySelector('.newsletter-button');
+            const email = emailInput.value.trim();
             
             // Basic email validation
-            if (validateEmail(email)) {
-                // Here you would typically send the email to your backend
-                alert('Vielen Dank für Ihre Anmeldung! Sie erhalten bald weitere Informationen.');
-                this.reset();
-            } else {
-                alert('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
+            if (!validateEmail(email)) {
+                showNotification('Bitte geben Sie eine gültige E-Mail-Adresse ein.', 'error');
+                return;
+            }
+            
+            // Show loading state
+            const originalButtonText = submitButton.textContent;
+            submitButton.textContent = 'Sende...';
+            submitButton.disabled = true;
+            
+            try {
+                // Send POST request to Azure Logic App
+                const response = await fetch('https://prod-19.switzerlandnorth.logic.azure.com/workflows/4aa99ca22abd457081126a66a0e65aa2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=eIb5MvQLjvPpfXyN0iuudQS_7VdVTRJMnSr9jrgLOzA', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        timestamp: new Date().toISOString(),
+                        source: 'megaeinfa.ch'
+                    })
+                });
+                
+                if (response.ok) {
+                    showNotification('🎉 Vielen Dank für Ihre Anmeldung! Sie erhalten bald weitere Informationen.', 'success');
+                    this.reset();
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+            } catch (error) {
+                console.error('Newsletter signup error:', error);
+                showNotification('⚠️ Entschuldigung, es gab ein Problem bei der Anmeldung. Bitte versuchen Sie es später erneut.', 'error');
+            } finally {
+                // Reset button state
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
             }
         });
     }
@@ -65,19 +100,87 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize filters
     initializeFilters();
 
-    // Initialize read more buttons
-    const readMoreButtons = document.querySelectorAll('.read-more-btn');
-    readMoreButtons.forEach(button => {
-        button.setAttribute('aria-expanded', 'false');
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            toggleDescription(this);
+    // Watch for dynamically added read more buttons
+    const mutationObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            mutation.addedNodes.forEach(function(node) {
+                if (node.nodeType === 1) { // Element node
+                    const newButtons = node.querySelectorAll ? node.querySelectorAll('.read-more-btn') : [];
+                    newButtons.forEach(button => {
+                        if (!button.hasAttribute('data-initialized')) {
+                            button.setAttribute('data-initialized', 'true');
+                            button.setAttribute('aria-expanded', 'false');
+                            button.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                toggleDescription(this);
+                            });
+                        }
+                    });
+                }
+            });
         });
+    });
+    
+    mutationObserver.observe(document.body, {
+        childList: true,
+        subtree: true
     });
 
     // Add search functionality
     addSearchFunctionality();
 });
+
+// Initialize read more buttons
+function initializeReadMoreButtons() {
+    const readMoreButtons = document.querySelectorAll('.read-more-btn');
+    console.log('Found read more buttons:', readMoreButtons.length);
+    
+    readMoreButtons.forEach(button => {
+        if (!button.hasAttribute('data-initialized')) {
+            button.setAttribute('data-initialized', 'true');
+            button.setAttribute('aria-expanded', 'false');
+            
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleDescription(this);
+            });
+        }
+    });
+}
+
+// Show notification function
+function showNotification(message, type = 'info') {
+    // Remove existing notifications
+    const existingNotifications = document.querySelectorAll('.notification');
+    existingNotifications.forEach(notification => notification.remove());
+    
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-message">${message}</span>
+            <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+        </div>
+    `;
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 5000);
+    
+    // Animate in
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 10);
+}
 
 // Email validation function
 function validateEmail(email) {
