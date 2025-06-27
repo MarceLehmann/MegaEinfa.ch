@@ -14,6 +14,7 @@ on:
 
 permissions:
   contents: write  # Benötigt für git push
+  actions: read    # Benötigt für Workflow-Ausführung
 
 jobs:
   fetch-and-update-events:
@@ -31,15 +32,36 @@ jobs:
         echo "🔄 Fetching events from Logic App..."
         
         # HTTP GET Request an Azure Logic App
-        RESPONSE=$(curl -s -X GET \
+        RESPONSE=$(curl -s -w "HTTP_CODE:%{http_code}" -X GET \
           "https://prod-25.switzerlandnorth.logic.azure.com:443/workflows/2d4664dae4a8477583ae88ce5a4cf570/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=oHWCdT2HSCOQ3j1gQOYJPg9e07eFR44xSIGbvyBl2OM" \
           -H "Content-Type: application/json")
         
-        echo "📥 Response from Logic App:"
-        echo "$RESPONSE" | jq '.'
+        # Extrahiere HTTP Status Code
+        HTTP_CODE=$(echo "$RESPONSE" | grep -o "HTTP_CODE:[0-9]*" | cut -d: -f2)
+        JSON_RESPONSE=$(echo "$RESPONSE" | sed 's/HTTP_CODE:[0-9]*$//')
+        
+        echo "� HTTP Status: $HTTP_CODE"
+        echo "�📥 Response from Logic App:"
+        
+        if [ "$HTTP_CODE" != "200" ]; then
+          echo "❌ Logic App returned error code: $HTTP_CODE"
+          echo "Response: $JSON_RESPONSE"
+          echo "has_new_events=false" >> $GITHUB_OUTPUT
+          exit 0  # Don't fail the workflow, just skip processing
+        fi
+        
+        # Prüfe ob die Response gültiges JSON ist
+        if ! echo "$JSON_RESPONSE" | jq empty > /dev/null 2>&1; then
+          echo "❌ Invalid JSON response from Logic App"
+          echo "Response: $JSON_RESPONSE"
+          echo "has_new_events=false" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+        
+        echo "$JSON_RESPONSE" | jq '.'
         
         # Prüfe ob neue Events vorhanden sind
-        NEW_EVENTS=$(echo "$RESPONSE" | jq -r '.New // empty')
+        NEW_EVENTS=$(echo "$JSON_RESPONSE" | jq -r '.New // empty')
         
         if [ "$NEW_EVENTS" = "null" ] || [ -z "$NEW_EVENTS" ] || [ "$NEW_EVENTS" = "[]" ]; then
           echo "ℹ️ Keine neuen Events gefunden."
@@ -228,8 +250,16 @@ jobs:
     
     - name: Summary
       run: |
+        echo "## Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
         if [ "${{ steps.fetch-events.outputs.has_new_events }}" = "true" ]; then
+          echo "🎉 **Erfolgreich abgeschlossen!** Neue Events wurden automatisch hinzugefügt." >> $GITHUB_STEP_SUMMARY
           echo "🎉 **Erfolgreich abgeschlossen!** Neue Events wurden automatisch hinzugefügt."
         else
+          echo "ℹ️ **Keine Aktion erforderlich** - Keine neuen Events gefunden." >> $GITHUB_STEP_SUMMARY
           echo "ℹ️ **Keine Aktion erforderlich** - Keine neuen Events gefunden."
         fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Workflow completed at:** $(date)" >> $GITHUB_STEP_SUMMARY
