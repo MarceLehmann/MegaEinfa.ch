@@ -1,0 +1,33 @@
+name: Test Action
+
+# Test ob Actions funktionieren
+on:
+  # Ermöglicht manuelles Ausführen
+  workflow_dispatch:
+  # Läuft auch bei Push auf main branch
+  push:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Test basic functionality
+      run: |
+        echo "🧪 Testing GitHub Actions..."
+        echo "Repository: ${{ github.repository }}"
+        echo "Branch: ${{ github.ref }}"
+        echo "Workflow: ${{ github.workflow }}"
+        echo "✅ GitHub Actions is working!"
+    
+    - name: List workspace files
+      run: |
+        echo "📁 Workspace contents:"
+        ls -la
+        echo ""
+        echo "📄 GitHub workflows:"
+        ls -la .github/workflows/ || echo "No workflows directory found"

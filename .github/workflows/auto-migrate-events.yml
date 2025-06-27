@@ -1,0 +1,111 @@
+name: Auto-migrate past events to recordings
+
+on:
+  schedule:
+    # Läuft täglich um 02:00 UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Manuell ausführbar
+  push:
+    paths:
+      - '_data/upcoming_events.yml'
+
+jobs:
+  migrate-events:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.1'
+        
+    - name: Install dependencies
+      run: |
+        gem install yaml
+        
+    - name: Migrate past events
+      run: |
+        ruby << 'EOF'
+        require 'yaml'
+        require 'date'
+        require 'fileutils'
+        
+        # Lade upcoming events
+        upcoming_events_file = '_data/upcoming_events.yml'
+        exit unless File.exist?(upcoming_events_file)
+        
+        upcoming_events = YAML.load_file(upcoming_events_file) || []
+        today = Date.today
+        
+        # Filtere vergangene Events
+        past_events = upcoming_events.select do |event|
+          begin
+            event_date = Date.parse(event['date'])
+            event_date < today
+          rescue
+            false
+          end
+        end
+        
+        # Erstelle Aufzeichnungen für vergangene Events
+        migrated_count = 0
+        past_events.each do |event|
+          filename = event['title'].downcase.gsub(/[^a-z0-9\s]/, '').gsub(/\s+/, '-')
+          recording_file = "_recordings/#{filename}.md"
+          
+          unless File.exist?(recording_file)
+            FileUtils.mkdir_p('_recordings')
+            
+            frontmatter = {
+              'title' => event['title'],
+              'date' => event['date'],
+              'presenter' => event['presenter'],
+              'youtube_id' => '',
+              'description' => event['description'],
+              'migrated_from_events' => true
+            }
+            
+            content = <<~MARKDOWN
+        ---
+        #{frontmatter.to_yaml.strip.gsub(/^---\n/, '')}
+        ---
+
+        #{event['description']}
+
+        **📅 Originaltermin:** #{Date.parse(event['date']).strftime('%d.%m.%Y')} um #{event['time'] || 'Zeit nicht verfügbar'}
+
+        **📹 Video hinzufügen:** 
+        Um das YouTube-Video anzuzeigen, bearbeiten Sie diese Datei und fügen Sie die `youtube_id` in den Metadaten oben hinzu.
+
+        **✨ Automatisch migriert:** Diese Aufzeichnung wurde automatisch aus den vergangenen Veranstaltungen erstellt.
+            MARKDOWN
+            
+            File.write(recording_file, content)
+            migrated_count += 1
+            puts "✅ Migriert: #{event['title']}"
+          end
+        end
+        
+        puts "🎉 Migration abgeschlossen: #{migrated_count} Events migriert"
+        
+        # Optional: Entferne vergangene Events (auskommentiert für Sicherheit)
+        # future_events = upcoming_events.reject { |event| Date.parse(event['date']) < today rescue false }
+        # File.write(upcoming_events_file, future_events.to_yaml) if future_events.size != upcoming_events.size
+        EOF
+        
+    - name: Commit migrated recordings
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add _recordings/
+        if ! git diff --staged --quiet; then
+          git commit -m "🤖 Auto-migrate: Vergangene Events zu Aufzeichnungen migriert"
+          git push
+        else
+          echo "Keine neuen Migrationen erforderlich"
+        fi
