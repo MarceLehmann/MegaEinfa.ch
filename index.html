@@ -86,9 +86,7 @@ layout: default
           <p><strong>💡 Tipp:</strong> Melden Sie sich für unseren Newsletter an, um als Erste über neue Termine informiert zu werden.</p>
           {% comment %} Debug Info {% endcomment %}
           {% assign debug_today = 'now' | date: '%Y-%m-%d' %}
-          <p><small>Debug: Heute ist {{ debug_today }}. 
-          Events in Datei: {{ site.data.upcoming_events.size | default: 0 }}. 
-          Zukünftige Events: {{ future_events.size | default: 0 }}.</small></p>
+
         </div>
       {% endif %}
     </div>

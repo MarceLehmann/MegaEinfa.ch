@@ -63,3 +63,14 @@ Detaillierte Beschreibung des Inhalts...
 ## Support
 
 Bei Fragen wenden Sie sich an: kontakt@thepoweraddicts.com
+
+## 🔄 Automatisierung
+
+Die Seite verfügt über **automatische Event-Synchronisation** mit einer Azure Logic App:
+
+- **📅 Täglich**: Automatische Prüfung auf neue Events
+- **🔗 Integration**: Verbindung zu Azure Logic App
+- **📝 Auto-Update**: Neue Events werden automatisch hinzugefügt
+- **🔍 Duplikat-Schutz**: Verhindert doppelte Einträge
+
+➡️ **[Vollständige Automatisierung-Dokumentation](./AUTOMATION.md)**
